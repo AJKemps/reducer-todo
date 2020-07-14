@@ -11,9 +11,14 @@ function App() {
     setNewToDoText(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleAdd = (event) => {
     event.preventDefault();
     dispatch({ type: "ADD_TODO", payload: newToDoText });
+  };
+
+  const handleClear = (event) => {
+    event.preventDefault();
+    dispatch({ type: "CLEAR_COMPLETED" });
   };
 
   const toggleToDo = (event, id) => {
@@ -47,8 +52,8 @@ function App() {
             value={newToDoText}
             onChange={handleChanges}
           ></input>
-          <button onClick={handleSubmit}>Add To Do</button>
-          <button onClick={handleSubmit}>Clear Completed</button>
+          <button onClick={handleAdd}>Add To Do</button>
+          <button onClick={handleClear}>Clear Completed</button>
         </form>
       </div>
     </div>

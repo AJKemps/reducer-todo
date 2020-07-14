@@ -33,6 +33,7 @@ function App() {
             onClick={() =>
               dispatch({ type: "TOGGLE_COMPLETED", payload: item.id })
             }
+            style={{ textDecoration: item.completed ? "line-through" : "" }}
           >
             {item.item}
           </li>

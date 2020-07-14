@@ -1,24 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useReducer } from "react";
+import { reducer, initialList } from "./reducers/todoReducer";
+import "./App.css";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialList);
+  const [newToDoText, setNewToDoText] = useState("Add to-dos here");
+  console.log(state);
+
+  const handleChanges = (event) => {
+    setNewToDoText(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch({ type: "ADD_TODO", payload: newToDoText });
+  };
+
+  const toggleToDo = (event, id) => {
+    event.preventDefault();
+    console.log(event.target.value);
+    dispatch({ type: "TOGGLE_COMPLETED", payload: id });
+    console.log(state);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>hello world</h1>
+      <div className="todo-container">
+        {state.todos.map((item) => (
+          <li
+            key={item.item}
+            onClick={() =>
+              dispatch({ type: "TOGGLE_COMPLETED", payload: item.id })
+            }
+          >
+            {item.item}
+          </li>
+        ))}
+      </div>
+      <div className="form-container">
+        <form>
+          <input
+            type="text"
+            name="newToDo"
+            value={newToDoText}
+            onChange={handleChanges}
+          ></input>
+          <button onClick={handleSubmit}>Add To Do</button>
+          <button onClick={handleSubmit}>Clear Completed</button>
+        </form>
+      </div>
     </div>
   );
 }

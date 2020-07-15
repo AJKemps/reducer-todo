@@ -29,7 +29,7 @@ export const reducer = (state, action) => {
         ...state,
         todos: state.todos.map((todo, index) => {
           console.log("does payload match id?", action.payload === todo.id);
-          if (action.payload === todo.id) {
+          if (todo.id === action.payload) {
             console.log("reached true:", index);
             return { ...todo, completed: !todo.completed };
           } else {
